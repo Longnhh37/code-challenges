@@ -1,39 +1,30 @@
-// Definition for a binary tree node.
-// #[derive(Debug, PartialEq, Eq)]
-// pub struct TreeNode {
-//   pub val: i32,
-//   pub left: Option<Rc<RefCell<TreeNode>>>,
-//   pub right: Option<Rc<RefCell<TreeNode>>>,
-// }
-// 
-// impl TreeNode {
-//   #[inline]
-//   pub fn new(val: i32) -> Self {
-//     TreeNode {
-//       val,
-//       left: None,
-//       right: None
-//     }
-//   }
-// }
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::rc::Rc;
 impl Solution {
     pub fn invert_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-        fn dfs(node: &Option<Rc<RefCell<TreeNode>>>) {
-            if let Some(n) = node {
-                let mut node_ref = n.borrow_mut();
+        let mut queue = std::collections::VecDeque::new();
 
-                let tmp = node_ref.left.take();
-                node_ref.left = node_ref.right.take();
-                node_ref.right = tmp;
-            
-                dfs(&node_ref.left);
-                dfs(&node_ref.right);
+        if let Some(ref node) = root {
+            queue.push_back(Rc::clone(node));
+        }
+
+        while let Some(node) = queue.pop_front() {
+            let mut n = node.borrow_mut();
+
+            let left = n.left.take();
+            let right = n.right.take();
+
+            n.left = right;
+            n.right = left;
+
+            if let Some(ref l) = n.left {
+                queue.push_back(Rc::clone(l));
+            }
+            if let Some(ref r) = n.right {
+                queue.push_back(Rc::clone(r));
             }
         }
 
-        dfs(&root);
         root
     }
 }
