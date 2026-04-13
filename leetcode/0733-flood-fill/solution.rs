@@ -1,61 +1,37 @@
+use std::collections::VecDeque;
+
 impl Solution {
-    pub fn flood_fill(
-        mut image: Vec<Vec<i32>>,
-        sr: i32,
-        sc: i32,
-        color: i32,
-    ) -> Vec<Vec<i32>> {
-        let m = image.len();
-        let n = image[0].len();
+    pub fn flood_fill(mut image: Vec<Vec<i32>>, sr: i32, sc: i32, color: i32) -> Vec<Vec<i32>> {
+        let h = image.len() as i32;
+        let w = image[0].len() as i32;
 
-        let sr = sr as usize;
-        let sc = sc as usize;
-
-        let start_value = image[sr][sc];
-
-        if start_value == color {
+        let starting_color = image[sr as usize][sc as usize];
+        if starting_color == color {
             return image;
         }
 
-        fn dfs(
-            image: &mut Vec<Vec<i32>>,
-            r: i32,
-            c: i32,
-            start_value: i32,
-            color: i32,
-            m: i32,
-            n: i32,
-        ) {
-            if r < 0 || c < 0 || r >= m || c >= n {
-                return;
+        let mut queue = VecDeque::new();
+
+        image[sr as usize][sc as usize] = color;
+        queue.push_back((sc, sr));
+
+        while let Some((x, y)) = queue.pop_front() {
+            for (dx, dy) in [(1, 0), (-1, 0), (0, 1), (0, -1)] {
+                let nx = x + dx;
+                let ny = y + dy;
+
+                if 0 <= nx
+                    && nx < w
+                    && 0 <= ny
+                    && ny < h
+                    && image[ny as usize][nx as usize] == starting_color
+                {
+                    image[ny as usize][nx as usize] = color;
+                    queue.push_back((nx, ny));
+                }
             }
-
-            let (r_usize, c_usize) = (r as usize, c as usize);
-
-
-            if image[r_usize][c_usize] != start_value {
-                return;
-            }
-
-            image[r_usize][c_usize] = color;
-
-            dfs(image, r - 1, c, start_value, color, m, n);
-            dfs(image, r + 1, c, start_value, color, m, n);
-            dfs(image, r, c - 1, start_value, color, m, n);
-            dfs(image, r, c + 1, start_value, color, m, n);
         }
-
-        dfs(
-            &mut image,
-            sr as i32,
-            sc as i32,
-            start_value,
-            color,
-            m as i32,
-            n as i32,
-        );
 
         image
     }
 }
-
