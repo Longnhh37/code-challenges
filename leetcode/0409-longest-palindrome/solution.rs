@@ -2,12 +2,12 @@ use std::collections::HashSet;
 
 impl Solution {
     pub fn longest_palindrome(s: String) -> i32 {
-        let mut seen: HashSet<char> = HashSet::new();
+        let mut seen = HashSet::new();
         let mut length = 0;
 
-        for c in s.chars() {
-            if !seen.insert(c) {
-                seen.remove(&c);
+        for b in s.bytes() {
+            if !seen.insert(b) {
+                seen.remove(&b);
                 length += 2;
             }
         }
