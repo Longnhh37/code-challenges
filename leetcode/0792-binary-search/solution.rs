@@ -1,11 +1,20 @@
 impl Solution {
     pub fn search(nums: Vec<i32>, target: i32) -> i32 {
-        let i = nums.binary_search(&target).unwrap_or_else(|x| x);
+        let mut l = 0;
+        let mut r = nums.len();
 
-        if i < nums.len() && target == nums[i] {
-            return i as i32;
+        while l < r {
+            let mid = (l + r) >> 1;
+            if nums[mid] == target {
+                return mid as i32;
+            } else if nums[mid] < target {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
         }
 
         -1i32
     }
 }
+
