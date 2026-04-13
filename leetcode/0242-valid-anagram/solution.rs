@@ -1,19 +1,24 @@
 impl Solution {
-    pub fn is_anagram(s: String, t: String) -> bool {        
+    pub fn is_anagram(s: String, t: String) -> bool {
         if s.len() != t.len() {
             return false;
         }
 
-        let mut count = [0; 26];
+        let mut counter = [0; 26];
 
-        for c in s.chars() {
-            count[(c as u8 - b'a') as usize] += 1;
+        for b in s.bytes() {
+            counter[(b - b'a') as usize] += 1;
         }
 
-        for c in t.chars() {
-            count[(c as u8 - b'a') as usize] -= 1;
+        for b in t.bytes() {
+            let i = (b - b'a') as usize;
+            if counter[i] == 0 {
+                return false;
+            }
+            counter[i] -= 1;
         }
 
-        count.iter().all(|&x| x == 0)
+        !counter.iter().any(|&v| v != 0)
     }
 }
+
