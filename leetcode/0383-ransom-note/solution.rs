@@ -8,12 +8,12 @@ impl Solution {
 
         let mut count = [0; 26];
 
-        for c in magazine.chars() {
-            count[(c as u8 - b'a') as usize] += 1;
+        for b in magazine.bytes() {
+            count[(b - b'a') as usize] += 1;
         }
 
-        for c in ransom_note.chars() {
-            let idx = (c as u8 - b'a') as usize;
+        for b in ransom_note.bytes() {
+            let idx = (b - b'a') as usize;
             match count[idx] {
                 0 => return false,
                 _ => count[idx] -= 1, 
