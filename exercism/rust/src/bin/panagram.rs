@@ -14,3 +14,4 @@ pub fn is_pangram(sentence: &str) -> bool {
 
     false
 }
+fn main() {}

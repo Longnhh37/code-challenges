@@ -33,6 +33,8 @@ impl fmt::Display for Clock {
     }
 }
 
+fn main() {}
+
 #[cfg(test)]
 mod tests {
     use super::*;

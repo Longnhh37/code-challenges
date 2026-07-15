@@ -23,6 +23,8 @@ fn normalize(s: &str) -> Vec<char> {
     v
 }
 
+fn main() {}
+
 #[cfg(test)]
 mod tests {
     use super::*;

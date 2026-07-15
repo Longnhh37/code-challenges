@@ -108,3 +108,4 @@ fn camelcase() {
     let expected = "HTML";
     assert_eq!(output, expected);
 }
+fn main() {}

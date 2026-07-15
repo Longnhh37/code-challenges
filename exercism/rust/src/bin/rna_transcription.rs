@@ -53,3 +53,4 @@ impl Rna {
         Ok(Self { rna })
     }
 }
+fn main() {}

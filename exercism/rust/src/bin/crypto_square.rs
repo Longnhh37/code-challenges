@@ -29,3 +29,4 @@ pub fn encrypt(input: &str) -> String {
     }
     out
 }
+fn main() {}

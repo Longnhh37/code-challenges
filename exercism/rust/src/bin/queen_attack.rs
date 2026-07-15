@@ -30,3 +30,4 @@ impl Queen {
         false
     }
 }
+fn main() {}

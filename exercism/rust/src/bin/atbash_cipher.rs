@@ -28,3 +28,4 @@ pub fn decode(cipher: &str) -> String {
         })
         .collect::<String>()
 }
+fn main() {}

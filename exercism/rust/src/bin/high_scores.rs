@@ -33,3 +33,4 @@ impl HighScores {
         top3.to_vec()
     }
 }
+fn main() {}

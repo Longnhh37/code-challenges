@@ -67,3 +67,4 @@ where
         Self { data }
     }
 }
+fn main() {}

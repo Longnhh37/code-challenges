@@ -67,3 +67,5 @@ pub fn score(dice: Dice, category: Category) -> u8 {
         }
     }
 }
+
+fn main() {}

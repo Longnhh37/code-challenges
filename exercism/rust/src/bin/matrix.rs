@@ -9,22 +9,18 @@ impl Matrix {
         let data = input
             .lines()
             .map(|line| {
-                line
-                    .split_whitespace()
+                line.split_whitespace()
                     .map(|n| n.parse::<u32>().unwrap())
                     .collect::<Vec<u32>>()
             })
             .collect::<Vec<_>>();
         let num_col = if data.is_empty() { 0 } else { data[0].len() };
 
-        Self {
-            data,
-            num_col,
-        }
+        Self { data, num_col }
     }
 
     pub fn row(&self, row_no: usize) -> Option<Vec<u32>> {
-        self.data.get(row_no.checked_sub(1)?).cloned()      
+        self.data.get(row_no.checked_sub(1)?).cloned()
     }
 
     pub fn column(&self, col_no: usize) -> Option<Vec<u32>> {
@@ -33,10 +29,12 @@ impl Matrix {
             return None;
         }
 
-        Some(self.data
-            .iter()
-            .map(|row| row[col_idx])
-            .collect::<Vec<u32>>()
-             )
+        Some(
+            self.data
+                .iter()
+                .map(|row| row[col_idx])
+                .collect::<Vec<u32>>(),
+        )
     }
 }
+fn main() {}

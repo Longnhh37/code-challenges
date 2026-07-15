@@ -33,3 +33,4 @@ pub fn word_count(words: &str) -> HashMap<String, u32> {
 
     map
 }
+fn main() {}

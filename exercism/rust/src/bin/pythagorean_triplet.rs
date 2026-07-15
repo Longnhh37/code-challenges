@@ -18,3 +18,4 @@ pub fn find(n: u32) -> HashSet<[u32; 3]> {
 
     unique
 }
+fn main() {}

@@ -42,3 +42,4 @@ impl<T> CircularBuffer<T> {
         self.data.push_back(element);
     }
 }
+fn main() {}

@@ -82,3 +82,4 @@ impl Robot {
         self.position
     }
 }
+fn main() {}

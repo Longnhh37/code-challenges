@@ -1,8 +1,4 @@
-pub fn find_saddle_points_2_pass(input: &[Vec<u64>]) -> Vec<(usize, usize)> {
-    vec![]
-}
-
-pub fn find_saddle_points_1_pass(input: &[Vec<u64>]) -> Vec<(usize, usize)> {
+pub fn find_saddle_points(input: &[Vec<u64>]) -> Vec<(usize, usize)> {
     let Some(last) = input.last() else {
         return vec![];
     };

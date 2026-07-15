@@ -128,3 +128,4 @@ fn display(title: &str, map: HashMap<String, Record>) -> String {
 
     format!("{}\n{}", title, body)
 }
+fn main() {}

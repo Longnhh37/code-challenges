@@ -46,3 +46,4 @@ pub fn translate(input: &str) -> String {
 
     out
 }
+fn main() {}

@@ -24,3 +24,4 @@ pub fn primes_up_to(lim: u64) -> Vec<u64> {
         .map(|i| i as u64)
         .collect()
 }
+fn main() {}

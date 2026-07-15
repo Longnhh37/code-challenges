@@ -49,3 +49,4 @@ impl Allergies {
         out
     }
 }
+fn main() {}

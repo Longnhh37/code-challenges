@@ -13,3 +13,4 @@ pub fn hamming_distance(s1: &str, s2: &str) -> Option<usize> {
     }
     Some(count)
 }
+fn main() {}

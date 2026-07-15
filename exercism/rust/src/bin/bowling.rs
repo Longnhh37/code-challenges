@@ -12,6 +12,7 @@ enum Frame {
     Tenth(Vec<u16>),
 }
 
+#[derive(Default)]
 pub struct BowlingGame {
     frames: Vec<Frame>,
     current: Vec<u16>,
@@ -19,10 +20,7 @@ pub struct BowlingGame {
 
 impl BowlingGame {
     pub fn new() -> Self {
-        Self {
-            frames: vec![],
-            current: vec![],
-        }
+        Self::default()
     }
 
     pub fn roll(&mut self, pins: u16) -> Result<(), Error> {

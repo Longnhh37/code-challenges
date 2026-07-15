@@ -37,3 +37,4 @@ impl<T: ToString> From<T> for Luhn<T> {
         Self(input)
     }
 }
+fn main() {}

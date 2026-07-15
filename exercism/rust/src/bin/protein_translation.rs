@@ -19,3 +19,4 @@ pub fn translate(rna: &str) -> Option<Vec<&str>> {
 
     Some(out)
 }
+fn main() {}

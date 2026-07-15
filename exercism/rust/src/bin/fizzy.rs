@@ -198,3 +198,4 @@ fn minimal_generic_bounds() {
     ];
     assert_eq!(actual, expected);
 }
+fn main() {}

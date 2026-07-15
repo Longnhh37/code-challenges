@@ -33,3 +33,4 @@ impl<T: ToString> Luhn for T {
         count > 1 && sum.is_multiple_of(10)
     }
 }
+fn main() {}

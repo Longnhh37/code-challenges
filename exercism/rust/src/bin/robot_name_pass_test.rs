@@ -60,3 +60,4 @@ impl Robot {
         self.name = new_name;
     }
 }
+fn main() {}

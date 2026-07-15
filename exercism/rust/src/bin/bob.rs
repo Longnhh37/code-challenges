@@ -27,3 +27,4 @@ pub fn reply(message: &str) -> &str {
         _ => "Whatever.",
     }
 }
+fn main() {}

@@ -9,3 +9,4 @@ pub fn rotate(input: &str, key: u8) -> String {
         .collect::<String>()
 }
 
+fn main() {}

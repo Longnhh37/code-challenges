@@ -7,23 +7,27 @@ pub fn spiral_matrix(n: u32) -> Vec<Vec<u32>> {
     let (mut top, mut bottom) = (0, n - 1);
     let (mut left, mut right) = (0, n - 1);
     let mut num = 1;
+
     while left <= right && top <= bottom {
-        for j in left..=right {
-            grid[top][j] = num;
+        for cell in grid[top][left..=right].iter_mut() {
+            *cell = num;
             num += 1;
         }
         top += 1;
-        for i in top..=bottom {
-            grid[i][right] = num;
+
+        for row in grid[top..=bottom].iter_mut() {
+            row[right] = num;
             num += 1;
         }
+
         if right == 0 {
             break;
         }
         right -= 1;
+
         if top <= bottom {
-            for j in (left..=right).rev() {
-                grid[bottom][j] = num;
+            for cell in grid[bottom][left..=right].iter_mut().rev() {
+                *cell = num;
                 num += 1;
             }
             if bottom == 0 {
@@ -33,8 +37,8 @@ pub fn spiral_matrix(n: u32) -> Vec<Vec<u32>> {
         }
 
         if left <= right {
-            for i in (top..=bottom).rev() {
-                grid[i][left] = num;
+            for row in grid[top..=bottom].iter_mut().rev() {
+                row[left] = num;
                 num += 1;
             }
             left += 1;
@@ -43,3 +47,5 @@ pub fn spiral_matrix(n: u32) -> Vec<Vec<u32>> {
 
     grid
 }
+
+fn main() {}

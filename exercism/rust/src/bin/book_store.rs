@@ -45,13 +45,13 @@ fn dp(state: [u8; 5], memo: &mut HashMap<[u8; 5], u32>) -> u32 {
         let mut size = 0;
         let mut valid = true;
 
-        for i in 0..5 {
+        for (i, elem) in next.iter_mut().enumerate() {
             if (mask & (1 << i)) != 0 {
-                if next[i] == 0 {
+                if *elem == 0 {
                     valid = false;
                     break;
                 }
-                next[i] -= 1;
+                *elem -= 1;
                 size += 1;
             }
         }
@@ -70,6 +70,7 @@ fn dp(state: [u8; 5], memo: &mut HashMap<[u8; 5], u32>) -> u32 {
     best
 }
 
+#[allow(unused)]
 fn price(num: u8) -> u32 {
     match num {
         1 => 800,

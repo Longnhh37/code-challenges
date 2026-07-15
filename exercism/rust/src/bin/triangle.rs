@@ -47,3 +47,4 @@ where
         !self.is_isosceles()
     }
 }
+fn main() {}

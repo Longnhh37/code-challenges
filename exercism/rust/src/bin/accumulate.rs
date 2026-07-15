@@ -10,3 +10,4 @@ where
 
     output
 }
+fn main() {}

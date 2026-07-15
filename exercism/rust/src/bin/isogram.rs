@@ -16,3 +16,4 @@ pub fn check(candidate: &str) -> bool {
     true
 }
 
+fn main() {}

@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 use anyhow::Error;
 use regex_lite::RegexBuilder;
 use std::fs::File;

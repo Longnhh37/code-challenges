@@ -45,3 +45,4 @@ pub fn nucleotide_counts(dna: &str) -> Result<HashMap<char, usize>, char> {
         ('T', arr[3]),
     ]))
 }
+fn main() {}

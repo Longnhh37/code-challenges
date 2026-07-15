@@ -1,4 +1,4 @@
-use rand::Rng;
+use rand::{Rng, RngExt};
 use std::cell::RefCell;
 use std::collections::HashSet;
 use std::rc::Rc;
@@ -38,8 +38,9 @@ impl RobotFactory {
         }
 
         loop {
-            let idx = rng.gen_range(0..MAX_NAMES);
-            if self.used.contains(&idx) {
+            let idx = rng.random_range(0..MAX_NAMES);
+            if !self.used.contains(&idx) {
+                self.used.insert(idx);
                 return idx;
             }
         }
@@ -71,3 +72,4 @@ impl Robot {
     }
 }
 
+fn main() {}

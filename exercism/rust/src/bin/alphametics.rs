@@ -77,6 +77,7 @@ fn backtrack(
     assign_and_finish(0, &to_assign, col, carry, columns, mapping, used, leading)
 }
 
+#[allow(clippy::too_many_arguments)]
 fn assign_and_finish(
     idx: usize,
     to_assign: &[char],
@@ -168,3 +169,4 @@ fn finish_column(
         false
     }
 }
+fn main() {}
