@@ -24,11 +24,12 @@ jobs:
           git config user.email "sync-bot@users.noreply.github.com"
 
       - name: Add remotes
+        env:
+          NEETCODE_URL: https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/Longnhh37/neetcode-submissions.git
+          CODEWARS_URL: https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/Longnhh37/codewars.git
         run: |
-          git remote add neetcode-src \
-            https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/<user>/neetcode-submissions.git || true
-          git remote add codewars-src \
-            https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/<user>/codewars.git || true
+          git remote add neetcode-src "$NEETCODE_URL" || true
+          git remote add codewars-src "$CODEWARS_URL" || true
 
       - name: Pull neetcode subtree
         run: git subtree pull --prefix=neetcode neetcode-src main --squash -m "chore: sync neetcode submissions"
