@@ -1,0 +1,40 @@
+name: Sync submissions into mono repo
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout mono repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SYNC_PAT }}
+
+      - name: Configure git
+        run: |
+          git config user.name "sync-bot"
+          git config user.email "sync-bot@users.noreply.github.com"
+
+      - name: Add remotes
+        run: |
+          git remote add neetcode-src \
+            https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/<user>/neetcode-submissions.git || true
+          git remote add codewars-src \
+            https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/<user>/codewars.git || true
+
+      - name: Pull neetcode subtree
+        run: git subtree pull --prefix=neetcode neetcode-src main --squash -m "chore: sync neetcode submissions"
+
+      - name: Pull codewars subtree
+        run: git subtree pull --prefix=codewars codewars-src main --squash -m "chore: sync codewars submissions"
+
+      - name: Push if changed
+        run: git push origin HEAD:main
