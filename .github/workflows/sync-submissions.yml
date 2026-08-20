@@ -31,11 +31,15 @@ jobs:
           git remote add neetcode-src "$NEETCODE_URL" || true
           git remote add codewars-src "$CODEWARS_URL" || true
 
-      - name: Pull neetcode subtree
-        run: git subtree pull --prefix=neetcode neetcode-src main --squash -m "chore: sync neetcode submissions"
+      - name: Fetch and merge neetcode
+        run: |
+          git fetch neetcode-src main
+          git merge neetcode-src/main --allow-unrelated-histories -m "chore: sync neetcode submissions" --no-edit || true
 
-      - name: Pull codewars subtree
-        run: git subtree pull --prefix=codewars codewars-src main --squash -m "chore: sync codewars submissions"
+      - name: Fetch and merge codewars
+        run: |
+          git fetch codewars-src main
+          git merge codewars-src/main --allow-unrelated-histories -m "chore: sync codewars submissions" --no-edit || true
 
       - name: Push if changed
         run: git push origin HEAD:main
