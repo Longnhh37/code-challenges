@@ -19,13 +19,6 @@ jobs:
         with:
           path: code-challenges
 
-      - name: Checkout neetcode-submissions
-        uses: actions/checkout@v6
-        with:
-          repository: Longnhh37/neetcode-submissions
-          token: ${{ secrets.SYNC_PAT }}
-          path: neetcode-submissions
-
       - name: Checkout Codewars
         uses: actions/checkout@v6
         with:
@@ -35,13 +28,8 @@ jobs:
 
       - name: Sync
         run: |
-          rm -rf code-challenges/neetcode
           rm -rf code-challenges/codewars
-
-          mkdir -p code-challenges/neetcode
           mkdir -p code-challenges/codewars
-
-          rsync -a --exclude='.git' neetcode-submissions/ code-challenges/neetcode/
           rsync -a --exclude='.git' codewars/ code-challenges/codewars/
 
       - name: Commit and push
