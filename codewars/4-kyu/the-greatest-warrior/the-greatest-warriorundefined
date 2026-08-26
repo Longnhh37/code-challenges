@@ -1,0 +1,28 @@
+​
+const RANK: [&'static str; 11] = ["Pushover", "Novice", "Fighter", "Warrior", "Veteran",
+    "Sage", "Elite", "Conqueror", "Champion", "Master", "Greatest"];
+​
+const MAX_EXP: u16 = 10000;
+​
+pub struct Warrior {
+    exp: u16,
+    achievements: Vec<&'static str>,
+}
+​
+impl Warrior {
+    pub fn new() -> Self {
+        Self {
+            exp: 100,
+            achievements: Vec::new(),
+        }
+    }
+​
+    pub fn level(&self) -> u16 {
+        self.exp / 100
+    }
+​
+    pub fn experience(&self) -> u16 {
+        self.exp
+    }
+​
+    pub fn rank(&self) -> &str {
