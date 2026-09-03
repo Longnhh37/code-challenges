@@ -1,4 +1,4 @@
-name: Sync leetcode subtree
+name: Sync leetcode
 
 on:
   schedule:
@@ -12,21 +12,33 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout code-challenges
+        uses: actions/checkout@v6
         with:
-          fetch-depth: 0
+          path: code-challenges
 
-      - name: Configure git
+      - name: Checkout Leetcode
+        uses: actions/checkout@v6
+        with:
+          repository: Longnhh37/leetcode
+          token: ${{ secrets.SYNC_PAT }}
+          path: leetcode
+
+      - name: Sync
+        run: |
+          rm -rf code-challenges/leetcode
+          mkdir -p code-challenges/leetcode
+          rsync -a --exclude='.git' leetcode/ code-challenges/leetcode/
+
+      - name: Commit and push
+        working-directory: code-challenges
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Add leetcode remote
-        run: |
-          git remote add leetcode-origin https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/Longnhh37/leetcode.git
-
-      - name: Subtree pull
-        run: git subtree pull --prefix=leetcode leetcode-origin main --squash -m "sync: daily leetcode subtree update"
-
-      - name: Push
-        run: git push
+          git add leetcode
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "sync: daily submissions"
+          git push
