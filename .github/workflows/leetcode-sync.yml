@@ -1,0 +1,32 @@
+name: Sync leetcode subtree
+
+on:
+  schedule:
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Add leetcode remote
+        run: |
+          git remote add leetcode-origin https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/Longnhh37/leetcode.git
+
+      - name: Subtree pull
+        run: git subtree pull --prefix=leetcode leetcode-origin main --squash -m "sync: daily leetcode subtree update"
+
+      - name: Push
+        run: git push
