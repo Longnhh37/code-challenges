@@ -1,7 +1,5 @@
-# Competitive Programming Solutions (cp)
+# Competitive Programming Solutions
 
-This repository houses my **competitive programming** solutions.  I practice on a variety of online judges, primarily:
-
-- **DMOJ**
-- **Timus**
-- **USACO**
+- DMOJ
+- Timus
+- USACO
