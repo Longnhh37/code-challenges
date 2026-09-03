@@ -1,1 +1,1 @@
-leetcode sync
+Leetcode sync
