@@ -1,7 +1,7 @@
 fn multi_greet(names: &[&str]) -> String {
     let mut res = "Hello".to_string();
     let n = names.len();
-    
+
     if n == 0 {
         res.push_str(", world")
     } else if n == 1 {
@@ -14,7 +14,8 @@ fn multi_greet(names: &[&str]) -> String {
         }
         res.push_str(&format!(" and {}", names[n - 1]));
     }
-    
+
     res.push('!');
     res
 }
+
