@@ -20,29 +20,18 @@ jobs:
           token: ${{ secrets.SYNC_PAT }}
           path: codewars
 
-      - name: Checkout LeetCode
-        uses: actions/checkout@v6
-        with:
-          repository: Longnhh37/leetcode
-          token: ${{ secrets.SYNC_PAT }}
-          path: leetcode
-
       - name: Sync
         run: |
           rm -rf code-challenges/codewars
           mkdir -p code-challenges/codewars
           rsync -a --exclude='.git' codewars/ code-challenges/codewars/
 
-          rm -rf code-challenges/leetcode
-          mkdir -p code-challenges/leetcode
-          rsync -a --exclude='.git' leetcode/ code-challenges/leetcode/
-
       - name: Commit and push
         working-directory: code-challenges
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add neetcode codewars leetcode
+          git add codewars
           if git diff --cached --quiet; then
             echo "No changes"
             exit 0
