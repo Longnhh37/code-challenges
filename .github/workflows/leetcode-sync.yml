@@ -1,44 +1,21 @@
-name: Sync leetcode
+name: Sync Leetcode
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 19 * * *"
-  workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
-  sync:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code-challenges
-        uses: actions/checkout@v6
+      - name: Sync code from LeetCode
+        uses: joshcai/leetcode-sync@v1.7
         with:
-          path: code-challenges
-
-      - name: Checkout Leetcode
-        uses: actions/checkout@v6
-        with:
-          repository: Longnhh37/leetcode
-          token: ${{ secrets.SYNC_PAT }}
-          path: leetcode
-
-      - name: Sync
-        run: |
-          rm -rf code-challenges/leetcode
-          mkdir -p code-challenges/leetcode
-          rsync -a --exclude='.git' leetcode/ code-challenges/leetcode/
-
-      - name: Commit and push
-        working-directory: code-challenges
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add leetcode
-          if git diff --cached --quiet; then
-            echo "No changes"
-            exit 0
-          fi
-          git commit -m "sync: daily submissions"
-          git push
+          github-token: ${{ github.token }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          destination-folder: 'leetcode'
+          verbose: true
+          commit-header: '[LeetCode Sync]'
