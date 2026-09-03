@@ -1,4 +1,4 @@
-name: Sync leetcode
+name: Sync codewars
 
 on:
   schedule:
