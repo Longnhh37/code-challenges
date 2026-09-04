@@ -1,0 +1,45 @@
+    }
+}
+​
+fn simple_assembler(program: Vec<&str>) -> HashMap<String, i64> {
+    let mut registers = HashMap::new();
+    let instructions: Vec<Instruction> = program
+        .into_iter()
+        .map(|line| {
+            let parts: Vec<&str> = line.split_ascii_whitespace().collect();
+            match parts[0] {
+                "mov" => Instruction::Mov(parts[1].to_string(), parse_val(parts[2])),
+                "inc" => Instruction::Inc(parts[1].to_string()),
+                "dec" => Instruction::Dec(parts[1].to_string()),
+                "jnz" => Instruction::Jnz(parse_val(parts[1]), parse_val(parts[2])),
+                _ => unreachable!(),
+            }
+    })
+        .collect();
+    
+    let mut pc = 0i64;
+    
+    while pc >= 0 && (pc as usize) < instructions.len() {
+        let cur = &instructions[pc as usize];
+        
+        match cur {
+            Instruction::Mov(reg, val) => {
+                let v = get_val(&val, &registers);
+                registers.insert(reg.clone(), v);
+            }
+            Instruction::Inc(reg) => *registers.entry(reg.to_string()).or_insert(0) += 1,
+            Instruction::Dec(reg) => *registers.entry(reg.to_string()).or_insert(0) -= 1,
+            Instruction::Jnz(cond, offset) => {
+                if get_val(&cond, &registers) != 0 {
+                    pc += get_val(offset, &registers);
+                    continue;
+                }
+            }
+        }
+        pc += 1;
+    }
+    
+    registers
+}
+​
+​
