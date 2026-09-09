@@ -1,13 +1,14 @@
 impl Solution {
     pub fn clear_digits(s: String) -> String {
-        let mut stack = Vec::new();
+        let mut res = Vec::new();
+
         for b in s.bytes() {
-            if b.is_ascii_digit() {
-                stack.pop();
-            } else {
-                stack.push(b);
+            match b {
+                b if b.is_ascii_digit() => { res.pop(); }
+                b => res.push(b),
             }
         }
-        String::from_utf8(stack).unwrap()
+
+        String::from_utf8(res).unwrap()
     }
 }
