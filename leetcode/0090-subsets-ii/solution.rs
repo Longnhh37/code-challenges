@@ -8,6 +8,7 @@ impl Solution {
 
     fn backtrack(nums: &[i32], start: usize, path: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
         res.push(path.clone());
+
         for i in start..nums.len() {
             if i > start && nums[i] == nums[i - 1] {
                 continue;
