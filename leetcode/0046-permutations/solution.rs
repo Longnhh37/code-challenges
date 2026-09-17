@@ -1,23 +1,24 @@
-use std::collections::HashSet;
-
 impl Solution {
     pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
         let mut res = Vec::new();
-        Self::backtrack(&nums, &mut HashSet::new(), &mut Vec::new(), &mut res);
+        let mut seen = vec![false; nums.len()];
+        Self::backtrack(&nums, &mut seen, &mut Vec::new(), &mut res);
+
         res
     }
-
-    fn backtrack(nums: &[i32], seen: &mut HashSet<i32>, path: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+    
+    fn backtrack(nums: &[i32], seen: &mut [bool], path: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
         if path.len() == nums.len() {
             return res.push(path.clone());
         }
-
-        for &n in nums {
-            if seen.insert(n) {
+        
+        for (i, &n) in nums.iter().enumerate() {
+            if !seen[i] {
+                seen[i] = true;
                 path.push(n);
                 Self::backtrack(nums, seen, path, res);
                 path.pop();
-                seen.remove(&n);
+                seen[i] = false;
             }
         }
     }
