@@ -1,45 +1,54 @@
 impl Solution {
     pub fn solve_n_queens(n: i32) -> Vec<Vec<String>> {
-        let n = n as usize;
-        let mut res = Vec::new();
-        let mut pos = vec![0usize; n];
-        Self::dfs(0, n, 0, 0, 0, &mut pos, &mut res);
-        res
+       let n = n as usize;
+       let mut cols = vec![false; n];
+       let mut diag1 = vec![false; 2 * n]; // row + n - col
+       let mut diag2 = vec![false; 2 * n]; // row + col
+       let mut queens = vec![0usize; n]; // queens[row] = col
+       let mut res = Vec::new();
+       Self::backtrack(0, n, &mut cols, &mut diag1, &mut diag2, &mut queens, &mut res);
+       res
     }
 
-    fn dfs(
+    fn backtrack(
         row: usize,
         n: usize,
-        cols: u32,
-        diag: u32,
-        anti_diag: u32,
-        pos: &mut Vec<usize>,
+        cols: &mut [bool],
+        diag1: &mut [bool],
+        diag2: &mut [bool],
+        queens: &mut [usize],
         res: &mut Vec<Vec<String>>,
     ) {
         if row == n {
-            return res.push(Self::build_board(pos, n));
+            return res.push(Self::build_board(&queens, n));
         }
+        for col in 0..n {
+            let d1 = row + n - col;
+            let d2 = row + col;
+            if cols[col] || diag1[d1] || diag2[d2] {
+                continue;
+            }
+            cols[col] = true;
+            diag1[d1] = true;
+            diag2[d2] = true;
+            queens[row] = col;
 
-        let full_mask = (1u32 << n) - 1;
-        let occupied = cols | diag | anti_diag;
-        let mut avail = full_mask & !occupied;
+            Self::backtrack(row + 1, n, cols, diag1, diag2, queens, res);
 
-        while avail != 0 {
-            let bit = avail & avail.wrapping_neg();
-            avail -= bit;
-            pos[row] = bit.trailing_zeros() as usize;
-            Self::dfs(row + 1, n , cols | bit, (diag | bit) << 1, (anti_diag | bit) >> 1, pos, res);
+            cols[col] = false;
+            diag1[d1] = false;
+            diag2[d2] = false;
         }
     }
 
-    fn build_board(pos: &[usize], n: usize) -> Vec<String> {
-        pos
-        .iter()
-        .map(|&c| {
-            let mut row = vec![b'.'; n];
-            row[c] = b'Q';
-            String::from_utf8(row).unwrap()
-        })
-        .collect()
+    fn build_board(queens: &[usize], n: usize) -> Vec<String> {
+        queens
+            .iter()
+            .map(|&col| {
+                let mut cur = vec![b'.'; n];
+                cur[col]  = b'Q';
+                String::from_utf8(cur).unwrap()
+            })
+            .collect()
     }
 }
