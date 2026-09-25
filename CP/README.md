@@ -1,7 +1,0 @@
-# Competitive Programming Solutions
-
-- DMOJ
-- Timus
-- USACO
-- Codeforce
-- CSES
