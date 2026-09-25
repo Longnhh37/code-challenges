@@ -1,1 +1,1 @@
-I solve coding problems
+I do coding challenges
