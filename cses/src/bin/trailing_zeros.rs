@@ -5,10 +5,13 @@ fn main() {
     std::io::stdin().read_to_string(&mut input).unwrap();
     let n: u32 = input.trim().parse().unwrap();
 
-    let mut res: u64 = 1;
-    for _ in 0..n {
-        res = res * 2 % (10_u64.pow(9) + 7);
+    let mut cnt = 0;
+    let mut p = 5;
+    while p <= n {
+        cnt += n / p;
+        p *= 5;
     }
 
-    println!("{}", res);
+    println!("{cnt}");
+
 }
