@@ -4,9 +4,8 @@ impl Solution {
         let mut cur = 0;
 
         for &n in &nums {
-            cur += n;
+            cur = n.max(cur + n);
             best = best.max(cur);
-            cur = cur.max(0);
         }
 
         best
