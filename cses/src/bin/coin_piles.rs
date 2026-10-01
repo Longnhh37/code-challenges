@@ -1,4 +1,4 @@
-use std::io::Read;
+use std::io::{self, BufWriter, Read, Write};
 
 fn main() {
     let mut input = String::new();
@@ -8,13 +8,15 @@ fn main() {
         .map(|x| x.parse::<u32>().unwrap());
 
     let n = it.next().unwrap();
+    let mut out = BufWriter::new(io::stdout().lock());
+
     for _ in 0..n {
         let a = it.next().unwrap();
         let b = it.next().unwrap();
-        if (2 * a + b) % 6 != 0 || (2 * a - b) % 3 != 0 {
-            println!("NO");
-        } else {
-            println!("YES");
-        }
+        writeln!(out, "{}", if can_empty(a, b) { "YES" } else { "NO" }).unwrap();
     }
+}
+
+fn can_empty(a: u32, b: u32) -> bool {
+    (a + b) % 3 == 0 && a.max(b) <= 2 * a.min(b)
 }
