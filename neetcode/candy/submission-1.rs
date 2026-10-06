@@ -4,7 +4,7 @@ impl Solution {
         if n == 1 {
             return 1;
         }
-        
+
         let mut candies = vec![1; n];
 
         for i in 1..n {
@@ -13,7 +13,7 @@ impl Solution {
             }
         }
 
-        for i in (0..=n-2).rev() {
+        for i in (0..=n - 2).rev() {
             if ratings[i] > ratings[i + 1] {
                 candies[i] = candies[i].max(candies[i + 1] + 1);
             }
