@@ -41,6 +41,7 @@ fn main() {
 
     for (u, v, w) in edges {
         if dist[u] < INF && dist[u] + w < dist[v] {
+            parent[v] = u;
             let mut pos = v;
             for _ in 0..n {
                 pos = parent[pos];
