@@ -12,14 +12,13 @@ class Solution:
         def dfs(r, c):
             if image[r][c] != start_value:
                 return
-            
+
             image[r][c] = color
 
-            for dr, dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+            for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 nr, nc = r + dr, c + dc
                 if 0 <= nr < m and 0 <= nc < n:
                     dfs(nr, nc)
-        
-        dfs(sr, sc)
-        return image        
 
+        dfs(sr, sc)
+        return image
