@@ -5,7 +5,7 @@ fn main() {
     io::stdin().read_to_string(&mut input).unwrap();
 
     let mut it = input
-        .split_whitespace()
+        .split_ascii_whitespace()
         .map(|x| x.parse::<usize>().unwrap());
 
     let n = it.next().unwrap();
