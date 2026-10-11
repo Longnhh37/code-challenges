@@ -27,7 +27,6 @@ fn main() {
         .map(|x| x.parse::<usize>().unwrap());
 
     let n = it.next().unwrap();
-
     let mut adj = vec![Vec::new(); n + 1];
 
     for _ in 0..n - 1 {
