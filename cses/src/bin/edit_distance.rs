@@ -20,7 +20,7 @@ fn main() {
             if a[i - 1] == b[j - 1] {
                 cur[j] = prev[j - 1];
             } else {
-                cur[j] = 1 + prev[j - 1].min(cur[i - 1]).min(prev[j]);
+                cur[j] = 1 + prev[j - 1].min(cur[j - 1]).min(prev[j]);
             }
         }
 
