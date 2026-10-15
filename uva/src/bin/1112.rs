@@ -10,48 +10,43 @@ fn main() {
         .split_ascii_whitespace()
         .map(|x| x.parse::<usize>().unwrap());
 
-    let tests = it.next().unwrap();
+    let cases = it.next().unwrap();
 
-    for _ in 0..tests {
+    for case in 0..cases {
         let n = it.next().unwrap();
         let exit = it.next().unwrap() - 1;
         let limit = it.next().unwrap() as u64;
 
-        let mut adj = vec![Vec::new(); n];
+        let mut radj = vec![Vec::new(); n];
         for _ in 0..it.next().unwrap() {
-            let u = it.next().unwrap();
-            let v = it.next().unwrap();
+            let u = it.next().unwrap() - 1;
+            let v = it.next().unwrap() - 1;
             let w = it.next().unwrap() as u64;
-            adj[u].push((v, w));
+            radj[v].push((u, w));
         }
 
-        let mut cnt = 0;
-        'outer: for start in 0..n {
-            let mut heap = BinaryHeap::from([Reverse((0u64, start))]);
-            let mut dist = vec![u64::MAX; n];
-            dist[start] = 0;
+        let mut dist = vec![u64::MAX; n];
+        dist[exit] = 0;
+        let mut heap = BinaryHeap::from([Reverse((0u64, exit))]);
 
-            while let Some(Reverse((d, u))) = heap.pop() {
-                if d > dist[u] {
-                    continue;
-                }
-                for &(v, w) in &adj[u] {
-                    let nd = w + d;
-                    if nd > limit {
-                        continue 'outer;
-                    }
-                    if v == exit {
-                        cnt += 1;
-                        continue 'outer;
-                    }
-                    if nd < dist[v] {
-                        dist[v] = nd;
-                        heap.push(Reverse((nd, v)));
-                    }
+        while let Some(Reverse((d, u))) = heap.pop() {
+            if d > dist[u] {
+                continue;
+            }
+            for &(v, w) in &radj[u] {
+                let nd = w + d;
+                if nd <= limit && nd < dist[v] {
+                    dist[v] = nd;
+                    heap.push(Reverse((nd, v)));
                 }
             }
         }
 
+        let cnt = dist.iter().filter(|&&d| d <= limit).count();
+
+        if case > 0 {
+            println!()
+        }
         println!("{cnt}");
     }
 }
