@@ -64,11 +64,15 @@ fn neighbors(a: u16, b: u16, cap1: u16, cap2: u16) -> Vec<(u16, u16, u16, Action
 
     // pour a -> b
     let t = a.min(cap2 - b);
-    res.push((a - t, b + t, t, AToB));
+    if t != 0 {
+        res.push((a - t, b + t, t, AToB));
+    }
 
     // pour b -> a
     let t = b.min(cap1 - a);
-    res.push((a + t, b - t, t, BToA));
+    if t != 0 {
+        res.push((a + t, b - t, t, BToA));
+    }
 
     // fill
     res.push((cap1, b, cap1 - a, FillA));
