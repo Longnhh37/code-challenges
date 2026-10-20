@@ -30,7 +30,17 @@ fn main() {
         }
     }
 
-    let out = p[2..n - 1]
+    let mut ans = vec![0usize; n];
+    let mut next = 1;
+    for c in 1..n - 1 {
+        let hi = c + p[c];
+        for e in next.max(c)..=hi {
+            ans[e] = e - c + 1;
+        }
+        next = next.max(hi + 1);
+    }
+
+    let out = ans[2..n - 1]
         .iter()
         .step_by(2)
         .map(|len| len.to_string())
