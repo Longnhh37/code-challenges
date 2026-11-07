@@ -13,14 +13,12 @@ impl Dsu {
  
     fn find(&mut self, mut x: usize) -> usize {
         while self.parent[x] != x {
-            // Path halving: point x to its grandparent while walking up.
             self.parent[x] = self.parent[self.parent[x]];
             x = self.parent[x];
         }
         x
     }
  
-    /// Returns true if the two sets were different and got merged.
     fn union(&mut self, a: usize, b: usize) -> bool {
         let (mut ra, mut rb) = (self.find(a), self.find(b));
         if ra == rb {
